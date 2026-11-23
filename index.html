@@ -1176,6 +1176,10 @@ html.no-anim *, html.no-anim *::before, html.no-anim *::after {
 html.no-anim .animate-in { opacity: 1 !important; transform: none !important; }
 html.no-anim .launch-screen .pixel-canvas, html.no-anim #launchJet { animation: none !important; }
 </style>
+<style id="layout-safety">
+/* safety: every page is exactly one viewport wide, so a wide page can never push later pages sideways */
+.pages-wrap > .page { flex: 0 0 100vw; width: 100vw; min-width: 100vw; max-width: 100vw; }
+</style>
 </head>
 <body>
 
@@ -4768,6 +4772,26 @@ function downloadPdf(btn, key) {
   // Skip the launch-screen delays when animations are off
   const go = document.getElementById('launchGo'), screen = document.getElementById('launchScreen');
   if (go && screen) go.addEventListener('click', () => { if (off) setTimeout(() => screen.remove(), 50); });
+})();
+</script>
+<script id="layout-safety-js">
+(function () {
+  // reset any sideways scroll offset (overflow:hidden containers can still be scrolled by focus/scrollIntoView)
+  function resetScroll() {
+    document.documentElement.scrollLeft = 0; document.body.scrollLeft = 0;
+    document.querySelectorAll('.pages-wrap, .page').forEach(function (el) { el.scrollLeft = 0; });
+    var w = document.getElementById('pagesWrap'); if (w && w.parentElement) w.parentElement.scrollLeft = 0;
+  }
+  document.addEventListener('pagechange', function () { setTimeout(resetScroll, 50); setTimeout(resetScroll, 900); });
+  window.addEventListener('scroll', resetScroll, true);
+  // safety net: if the guide is past its launch screen but no page is active (blank page), activate the current one
+  setInterval(function () {
+    if (document.getElementById('launchScreen')) return;
+    if (document.querySelector('.page.active, .page.exiting')) return;
+    var pages = document.querySelectorAll('.page');
+    var i = (typeof current === 'number') ? current : 0;
+    if (pages[i]) pages[i].classList.add('active');
+  }, 2500);
 })();
 </script>
 </body>
