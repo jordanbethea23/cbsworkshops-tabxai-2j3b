@@ -4612,8 +4612,8 @@ document.querySelectorAll('.setup-stepper').forEach(function setupStepper(root) 
   const other = form.querySelector('.survey-other');
   const KEY = 'tableauxai.wrapupSurvey.submitted';
   // From createSurveyForm() in build/wrapup_survey.gs: the Google Form's formResponse URL and each question's entry ID.
-  const FORM_URL = '';
-  const ENTRIES = {"name":"entry.216384136","email":"entry.1620721475","company":"entry.273602344","industry":"entry.1779742401","rating_workshop":"entry.600708951","knowledge_clarity":"entry.1142550398","knowledge_handson":"entry.298185221","pulse_clarity":"entry.1630315515","pulse_handson":"entry.213716323","dashboard_clarity":"entry.952064630","dashboard_handson":"entry.1916001677","headless_clarity":"entry.1501270026","headless_handson":"entry.1108725361","studio_clarity":"entry.1754199308","studio_handson":"entry.1480879998","lab_access":"entry.1299550909","tech_issues":"entry.618860673","pacing":"entry.1499102906","improve":"entry.1727602664","excited":"entry.1270082780"};
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScuFn9C2hAdNrfWNhH_0KFOYzXeAOLCrKBPSnZ8a2wlFXIClA/formResponse';
+  const ENTRIES = {"name":"entry.1344770278","email":"entry.1345420095","company":"entry.1284702777","industry":"entry.1418179672","rating_workshop":"entry.677027227","knowledge_clarity":"entry.565652819","knowledge_handson":"entry.265591215","pulse_clarity":"entry.1646452479","pulse_handson":"entry.1260290047","dashboard_clarity":"entry.461714457","dashboard_handson":"entry.293178480","headless_clarity":"entry.1653430267","headless_handson":"entry.2123789203","studio_clarity":"entry.1642840964","studio_handson":"entry.641056339","lab_access":"entry.195405841","tech_issues":"entry.20693953","pacing":"entry.554141139","improve":"entry.53391101","excited":"entry.2078887830"};
 
   const say = (msg, isError) => { status.textContent = msg; status.classList.toggle('is-error', !!isError); };
   function show(done) {
